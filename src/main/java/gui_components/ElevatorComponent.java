@@ -20,7 +20,7 @@ public class ElevatorComponent extends JPanel {
         elevatorIdText.setAlignmentX(RIGHT_ALIGNMENT);
         this.add(elevatorIdText);
 
-        var elevatorIdLabel = new JLabel(String.valueOf(elevator.getID()));
+        var elevatorIdLabel = new JLabel(String.valueOf(elevator.getId()));
         elevatorIdLabel.setAlignmentX(RIGHT_ALIGNMENT);
         this.add(elevatorIdLabel);
 

@@ -55,14 +55,6 @@ public class Logger {
         return loggingPanels.add(panel);
     }
 
-    public boolean removeLoggingPanel(LoggerPanel panel) {
-        return loggingPanels.remove(panel);
-    }
-
-    public void clearLoggingPanels() {
-        loggingPanels.clear();
-    }
-
     public void logNewMessage(String message) {
         var realDate = LocalDateTime.now();
         var simulationTime = World.getInstance().getSimulationStep();
@@ -74,7 +66,6 @@ public class Logger {
         messageBuilder.append(" ");
         messageBuilder.append(message);
         messageBuilder.append("\n");
-        // TODO Change to FileWriter in the future
         try {
             Files.write(logFile.toPath(), messageBuilder.toString().getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {

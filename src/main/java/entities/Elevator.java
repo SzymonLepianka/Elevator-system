@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Elevator extends Entity {
-    private final int ID;
+    private final int id;
     private final List<Integer> targetFloor = new ArrayList<>();
     private State state;
     private int currentFloor;
 
-    public Elevator(int ID) {
-        this.ID = ID;
+    public Elevator(int id) {
+        this.id = id;
         currentFloor = 0;
     }
 
@@ -64,8 +64,8 @@ public class Elevator extends Entity {
         this.state = state;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public List<Integer> getTargetFloor() {
@@ -103,7 +103,7 @@ public class Elevator extends Entity {
     @Override
     public String toString() {
         return "Elevator{" +
-                "ID=" + ID +
+                "ID=" + id +
                 '}';
     }
 }

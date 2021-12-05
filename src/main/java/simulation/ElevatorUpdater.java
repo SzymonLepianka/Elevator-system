@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 public class ElevatorUpdater {
     private static final World world = World.getInstance();
 
+    private ElevatorUpdater(){}
+
     public static void assignRequestsFcfs() {
         var allNotMovingElevatorsWithoutTarget =
                 world.getElevators()
@@ -22,7 +24,6 @@ public class ElevatorUpdater {
         var allUnassignedRequests = world.getRequests().stream().filter(x -> !x.isElevatorAssigned()).collect(Collectors.toList());
         for (var request : allUnassignedRequests) {
             int startFloor = request.getCurrentFloor();
-            int targetFloor = request.getTargetFloor();
 
             var nearestNotMovingElevator = allNotMovingElevatorsWithoutTarget
                     .stream()
@@ -62,11 +63,11 @@ public class ElevatorUpdater {
         }
     }
 
+    //TODO impove calculating cost
     private static Integer calculateCost(Elevator elevator, Request request) {
         var targetFloorList = elevator.getTargetFloor();
         var currentElevatorFloor = elevator.getCurrentFloor();
 
-        // TODO improve this
         int cost = 0;
         cost += Math.abs(currentElevatorFloor - request.getCurrentFloor());
         for (var targetFloor : targetFloorList) {
@@ -74,18 +75,6 @@ public class ElevatorUpdater {
             currentElevatorFloor = targetFloor;
         }
         return cost;
-    }
-
-    private static boolean between(int lowerValue, int upperValue, int value1, int value2) {
-        return value1 >= lowerValue && value1 <= upperValue && value2 >= lowerValue && value2 <= upperValue;
-    }
-
-    private static Elevator.State direction(int startFloor, int targetFloor) {
-        if (startFloor < targetFloor) {
-            return Elevator.State.MOVING_UP;
-        } else {
-            return Elevator.State.MOVING_DOWN;
-        }
     }
 
     public static void performActionOfElevators() {
