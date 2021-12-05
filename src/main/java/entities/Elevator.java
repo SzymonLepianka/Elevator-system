@@ -1,30 +1,59 @@
 package entities;
 
+import world.World;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Elevator extends Entity {
     private final int ID;
+    private final List<Integer> targetFloor = new ArrayList<>();
     private State state;
     private int currentFloor;
-    private final List<Integer> targetFloor = new ArrayList<>();
 
     public Elevator(int ID) {
         this.ID = ID;
         currentFloor = 0;
     }
 
+    private static boolean between(int lowerValue, int upperValue, int value1, int value2) {
+        if (lowerValue < upperValue) {
+            return value1 >= lowerValue && value1 <= upperValue && value2 >= lowerValue && value2 <= upperValue;
+        } else {
+            return value1 >= upperValue && value1 <= lowerValue && value2 >= upperValue && value2 <= lowerValue;
+        }
+    }
+
+    private static Elevator.State direction(int startFloor, int targetFloor) {
+        if (startFloor < targetFloor) {
+            return Elevator.State.MOVING_UP;
+        } else {
+            return Elevator.State.MOVING_DOWN;
+        }
+    }
+
     public void takeRequest(Request request) {
         request.setAssignedElevator(this);
+        addRequestFloorsToTargetFloors(request);
+        World.getInstance().removeEntity(request);
+    }
+
+    private void addRequestFloorsToTargetFloors(Request request) {
+        var startFloor = currentFloor;
+        for (int i = 0; i < targetFloor.size(); i++) {
+            if (direction(startFloor, targetFloor.get(i)) == request.getDirection() && between(startFloor, targetFloor.get(i), request.getCurrentFloor(), request.getTargetFloor())) {
+                if (targetFloor.get(i) != request.getTargetFloor()) {
+                    targetFloor.add(i, request.getTargetFloor());
+                }
+                if (startFloor != request.getCurrentFloor()) {
+                    targetFloor.add(i, request.getCurrentFloor());
+                }
+                return;
+            }
+            startFloor = targetFloor.get(i);
+        }
         targetFloor.add(request.getCurrentFloor());
         targetFloor.add(request.getTargetFloor());
-        if (request.getCurrentFloor() < this.currentFloor) {
-            state = State.MOVING_DOWN;
-        } else if (request.getCurrentFloor() > this.currentFloor) {
-            state = State.MOVING_UP;
-        } else {
-            state = State.NOT_MOVING;
-        }
     }
 
     public State getState() {
@@ -69,5 +98,12 @@ public class Elevator extends Entity {
         MOVING_UP,
         MOVING_DOWN,
         NOT_MOVING
+    }
+
+    @Override
+    public String toString() {
+        return "Elevator{" +
+                "ID=" + ID +
+                '}';
     }
 }

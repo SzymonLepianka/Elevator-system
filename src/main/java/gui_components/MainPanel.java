@@ -3,6 +3,7 @@ package gui_components;
 import entities.Elevator;
 import simulation.ElevatorUpdater;
 import world.World;
+import world.WorldConfiguration;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +42,12 @@ public class MainPanel {
         stepButton.setMaximumSize(new Dimension(50, 50));
         stepButton.addActionListener(e -> {
             World.getInstance().incrementSimulationStep();
-            ElevatorUpdater.assignRequests();
+            var chosenAlgorithm = World.getInstance().getConfig().getChosenAlgorithm();
+            if (chosenAlgorithm == WorldConfiguration.Algorithm.FIRST_COME_FIRST_SERVE) {
+                ElevatorUpdater.assignRequestsFcfs();
+            } else if (chosenAlgorithm == WorldConfiguration.Algorithm.OWN_PRIMITIVE_COST_CALCULATION) {
+                ElevatorUpdater.assignRequestsPrimitiveCost();
+            }
             ElevatorUpdater.performActionOfElevators();
             revalidateElevators(scrollContent);
         });
