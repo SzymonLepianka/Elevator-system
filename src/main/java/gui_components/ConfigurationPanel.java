@@ -13,7 +13,7 @@ public class ConfigurationPanel {
     JComboBox<String> algorithmSelectionComboBox = new JComboBox<>();
 
     public void createWindow() {
-        mainFrame.setSize(500, 500);
+        mainFrame.setSize(500, 250);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         mainFrame.setLayout(new GridLayout(2, 3));

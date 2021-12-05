@@ -32,7 +32,7 @@ public class ElevatorUpdater {
 
             if (nearestNotMovingElevator != null) {
                 nearestNotMovingElevator.takeRequest(request);
-                Logger.getInstance().logNewMessage(request + " was taken by " + nearestNotMovingElevator.getID());
+                Logger.getInstance().logNewMessage(request + " was taken by " + nearestNotMovingElevator);
             } else {
                 break;
             }
@@ -47,7 +47,6 @@ public class ElevatorUpdater {
             for (var elevator : allElevators) {
                 costs.put(elevator, calculateCost(elevator, request));
             }
-            System.out.println(costs);
 
             // find elevator with the lowest cost
             Map.Entry<Elevator, Integer> min = null;
@@ -58,7 +57,7 @@ public class ElevatorUpdater {
             }
             if (min != null) {
                 min.getKey().takeRequest(request);
-                Logger.getInstance().logNewMessage(request + " was taken by " + min.getKey().getID());
+                Logger.getInstance().logNewMessage(request + " was taken by " + min.getKey());
             }
         }
     }

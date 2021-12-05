@@ -13,7 +13,7 @@ public class MainPanel {
     private final JButton stepButton = new JButton("Step");
 
     public void createMapWindow() {
-        frame.setSize(800, 600);
+        frame.setSize(800, 400);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLayout(new GridLayout(1, 2));
@@ -28,9 +28,9 @@ public class MainPanel {
         scrollContent.setLayout(new BoxLayout(scrollContent, BoxLayout.Y_AXIS));
 
         var districtScrollPane = new JScrollPane(scrollContent);
-        districtScrollPane.setPreferredSize(new Dimension(500, 300));
-        districtScrollPane.setBounds(300, 0, 300, 500);
-        districtScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        districtScrollPane.setPreferredSize(new Dimension(400, 300));
+        districtScrollPane.setBounds(300, 0, 400, 300);
+        districtScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         districtScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         elevatorsPanel.add(districtScrollPane);
@@ -43,7 +43,7 @@ public class MainPanel {
         stepButton.addActionListener(e -> {
             World.getInstance().incrementSimulationStep();
             var chosenAlgorithm = World.getInstance().getConfig().getChosenAlgorithm();
-            if (chosenAlgorithm == WorldConfiguration.Algorithm.FIRST_COME_FIRST_SERVE) {
+            if (chosenAlgorithm == WorldConfiguration.Algorithm.FIRST_COME_FIRST_SERVED) {
                 ElevatorUpdater.assignRequestsFcfs();
             } else if (chosenAlgorithm == WorldConfiguration.Algorithm.OWN_PRIMITIVE_COST_CALCULATION) {
                 ElevatorUpdater.assignRequestsPrimitiveCost();

@@ -14,7 +14,7 @@ public class CallingPanel {
     JComboBox<String> numberOfTargetFloorComboBox = new JComboBox<>();
 
     public void createMapWindow() {
-        frame.setSize(300, 300);
+        frame.setSize(300, 150);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
 
@@ -34,7 +34,7 @@ public class CallingPanel {
             int targetFloor = Integer.parseInt(numberOfTargetFloorComboBox.getSelectedItem().toString());
             if (currentFloor != targetFloor) {
                 var newRequest = new Request(currentFloor, targetFloor);
-                Logger.getInstance().logNewMessage("take new request");
+                Logger.getInstance().logNewMessage(newRequest + " has been queued");
                 World.getInstance().addEntity(newRequest);
             }
         });

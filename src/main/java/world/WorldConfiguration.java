@@ -29,7 +29,7 @@ public class WorldConfiguration {
     }
 
     public enum Algorithm {
-        FIRST_COME_FIRST_SERVE,
+        FIRST_COME_FIRST_SERVED,
         OWN_PRIMITIVE_COST_CALCULATION
     }
 }
