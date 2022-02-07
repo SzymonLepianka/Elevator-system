@@ -1,0 +1,4 @@
+Elevator-system
+e039229077a513ee3ab0c665b9a969d7c40b395d
+
+gradlew sonarqube -Dsonar.projectKey="Elevator-system" -Dsonar.host.url=http://localhost:9000 -Dsonar.login=e039229077a513ee3ab0c665b9a969d7c40b395d
